@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGRIFARM — Grand Opening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #FFF8F0;
+  --warm:     #F5E6D0;
+  --green:    #3D7A4C;
+  --green-lt: #6AAE7A;
+  --amber:    #E8A020;
+  --coral:    #E05A3A;
+  --teal:     #2A8C8C;
+  --dark:     #1C2B1E;
+  --gold:     #C8860A;
+  --purple:   #7B4FAF;
+  --blue:     #2E6FA8;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #d8d0c5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+
+/* ════════════════════════════════
+   PAGES SYSTEM
+════════════════════════════════ */
+.page {
+  display: none;
+  width: 720px;
+  background: var(--cream);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.28);
+  animation: pageIn 0.45s cubic-bezier(.22,1,.36,1) both;
+}
+.page.active { display: block; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)  scale(1); }
+}
+
+/* ════════════════════════════════
+   BACK BUTTON (sub-pages)
+════════════════════════════════ */
+.back-bar {
+  background: var(--dark);
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.back-bar:hover { background: #2e4033; }
+.back-bar span { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 700; }
+.back-bar strong { color: #fff; font-size: 13px; }
+.back-arrow { color: var(--amber); font-size: 18px; }
+
+/* ════════════════════════════════
+   MAIN FLYER — PAGE 0
+════════════════════════════════ */
+.header {
+  background: var(--dark);
+  padding: 44px 42px 34px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(61,122,76,0.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 10% 90%, rgba(232,160,32,0.22) 0%, transparent 50%);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.logo-icon {
+  width: 56px; height: 56px;
+  background: var(--green);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.logo-text span { color: var(--green-lt); }
+
+.header-badge {
+  display: inline-block;
+  background: var(--amber);
+  color: var(--dark);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  position: relative;
+  animation: fadeSlideDown 0.7s ease both;
+}
+.header-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.62);
+  font-weight: 600;
+  position: relative;
+  animation: fadeSlideDown 0.7s 0.2s ease both;
+}
+.opening-date {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 40px;
+  padding: 10px 22px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  position: relative;
+  animation: fadeSlideDown 0.7s 0.4s ease both;
+}
+.dot {
+  width: 9px; height: 9px;
+  background: var(--amber);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.strip {
+  height: 6px;
+  background: linear-gradient(90deg, var(--coral) 0%, var(--amber) 33%, var(--green) 66%, var(--teal) 100%);
+}
+
+/* SECTION CARDS — clickable */
+.sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.section {
+  padding: 34px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  animation: fadeUp 0.6s ease both;
+}
+.section:nth-child(1) { background: #fff; animation-delay: 0.45s; }
+.section:nth-child(2) { background: var(--warm); animation-delay: 0.6s; }
+.section:nth-child(3) { background: #fff; animation-delay: 0.75s; }
+.section + .section { border-left: 1px solid rgba(0,0,0,0.07); }
+.section:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); z-index: 1; }
+
+.section-icon {
+  font-size: 54px;
+  margin-bottom: 12px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  transition: transform 0.3s ease;
+}
+.section:hover .section-icon { transform: scale(1.15) rotate(-6deg); }
+.section-label {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.s1 .section-label { color: var(--coral); }
+.s2 .section-label { color: var(--amber); }
+.s3 .section-label { color: var(--green); }
+.section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--dark); margin-bottom: 8px; line-height: 1.2;
+}
+.section p { font-size: 12px; color: #666; line-height: 1.6; }
+.section-cta {
+  margin-top: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 900;
+  padding: 7px 16px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 1px;
+  transition: gap 0.2s;
+}
+.section:hover .section-cta { gap: 10px; }
+.s1 .section-cta { background: var(--coral); color: #fff; }
+.s2 .section-cta { background: var(--amber); color: var(--dark); }
+.s3 .section-cta { background: var(--green); color: #fff; }
+
+/* PROMO */
+.promo {
+  background: var(--green);
+  padding: 28px 40px;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 20px;
+  position: relative; overflow: hidden;
+  animation: fadeUp 0.6s 0.85s ease both;
+}
+.promo::before {
+  content: '✦';
+  position: absolute; right: 160px; top: -15px;
+  font-size: 80px; color: rgba(255,255,255,0.06);
+}
+.promo-text .kicker {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green-lt); margin-bottom: 4px;
+}
+.promo-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; color: #fff; line-height: 1.2;
+}
+.promo-text p { color: rgba(255,255,255,0.72); font-size: 13px; margin-top: 6px; }
+.promo-badge {
+  flex-shrink: 0; width: 100px; height: 100px;
+  background: var(--amber); border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+  animation: spin-slow 10s linear infinite;
+}
+.promo-badge .pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900; color: var(--dark); line-height: 1;
+}
+.promo-badge .off { font-size: 11px; font-weight: 800; color: var(--dark); letter-spacing: 1px; }
+
+.features {
+  background: var(--warm);
+  padding: 20px 40px;
+  display: flex; justify-content: space-between; gap: 10px;
+  animation: fadeUp 0.6s 1s ease both;
+}
+.feature { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--dark); }
+.feature .fi { font-size: 18px; }
+
+.footer {
+  background: var(--dark);
+  padding: 26px 40px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  animation: fadeUp 0.6s 1.1s ease both;
+}
+.footer-item { display: flex; flex-direction: column; gap: 3px; }
+.fi-label {
+  font-size: 9.5px; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.fi-value { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.4; }
+.fi-value a { color: var(--green-lt); text-decoration: none; }
+
+.bottom-tag {
+  background: var(--amber);
+  text-align: center; padding: 10px;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--dark);
+}
+
+/* ════════════════════════════════
+   CATALOG PAGES — shared
+════════════════════════════════ */
+.cat-header {
+  padding: 36px 40px 28px;
+  position: relative; overflow: hidden;
+}
+.cat-header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 90% 10%, rgba(255,255,255,0.15) 0%, transparent 50%);
+}
+.cat-header .store-name {
+  font-size: 10px; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 6px; position: relative;
+}
+.cat-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 900; color: #fff;
+  line-height: 1; position: relative;
+}
+.cat-header h2 em { font-style: italic; opacity: 0.7; font-size: 32px; }
+.cat-header p {
+  color: rgba(255,255,255,0.65); font-size: 14px;
+  margin-top: 8px; position: relative;
+}
+
+/* color themes per page */
+.page-pets .cat-header   { background: linear-gradient(135deg, #B83820 0%, #E05A3A 60%, #F07050 100%); }
+.page-home .cat-header   { background: linear-gradient(135deg, #1A4A6A 0%, #2E6FA8 60%, #4090C8 100%); }
+.page-plants .cat-header { background: linear-gradient(135deg, #1E5C30 0%, #3D7A4C 60%, #5A9A6A 100%); }
+
+.page-pets  .strip { background: linear-gradient(90deg,#E05A3A,#F09060,#E8A020); }
+.page-home  .strip { background: linear-gradient(90deg,#2E6FA8,#5A9ACE,#7B4FAF); }
+.page-plants .strip { background: linear-gradient(90deg,#3D7A4C,#6AAE7A,#A8D060); }
+
+/* PRODUCT GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: #e0d8d0;
+}
+.product-card {
+  background: #fff;
+  padding: 0;
+  display: flex; flex-direction: column;
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); z-index:1; }
+
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:nth-child(6) { animation-delay: 0.6s; }
+
+.product-img {
+  width: 100%; height: 150px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+  line-height: 1;
+  position: relative;
+}
+.page-pets   .product-img { background: #fff5f3; }
+.page-home   .product-img { background: #f0f5ff; }
+.page-plants .product-img { background: #f0fff4; }
+
+.product-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 10px; font-weight: 800;
+  padding: 3px 9px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.page-pets   .product-badge { background: #fce8e4; color: var(--coral); }
+.page-home   .product-badge { background: #e4eeff; color: var(--blue); }
+.page-plants .product-badge { background: #e4f5eb; color: var(--green); }
+
+.product-info { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+.product-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--dark); margin-bottom: 5px; line-height: 1.3;
+}
+.product-desc { font-size: 11.5px; color: #777; line-height: 1.5; flex: 1; }
+.product-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.product-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; line-height: 1;
+}
+.page-pets   .product-price { color: var(--coral); }
+.page-home   .product-price { color: var(--blue); }
+.page-plants .product-price { color: var(--green); }
+.product-price .cents { font-size: 14px; }
+.product-price .euro  { font-size: 13px; margin-left: 1px; }
+
+.product-stock {
+  font-size: 10px; font-weight: 800;
+  padding: 4px 9px; border-radius: 12px;
+}
+.stock-yes { background: #e4f5eb; color: var(--green); }
+.stock-few { background: #fff3e0; color: var(--gold); }
+
+/* CATALOG FOOTER */
+.cat-footer {
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.page-pets   .cat-footer { background: #fff5f3; }
+.page-home   .cat-footer { background: #f0f5ff; }
+.page-plants .cat-footer { background: #f0fff4; }
+
+.cat-footer p { font-size: 12px; color: #888; }
+.cat-footer strong { color: var(--dark); }
+.promo-note {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 800;
+  background: var(--amber);
+  color: var(--dark);
+  padding: 8px 16px; border-radius: 20px;
+}
+
+/* ════════════════════════════════
+   ANIMATIONS
+════════════════════════════════ */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.5; transform:scale(1.4); }
+}
+@keyframes spin-slow {
+  from { transform:rotate(0deg); }
+  to   { transform:rotate(360deg); }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .page { box-shadow: none; width: 100%; }
+  * { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PAGE 0 — MAIN FLYER
+══════════════════════════════════════ -->
+<div class="page active" id="page-home-flyer">
+
+  <div class="header">
+    <div class="header-logo">
+      <div class="logo-icon">🌾</div>
+      <div class="logo-text">AGRI<span>FARM</span></div>
+    </div>
+    <div class="header-badge">🎉 Grand Opening</div>
+    <div class="header-sub">Il tuo negozio di quartiere per animali, casa e natura</div>
+    <div class="opening-date">
+      <span class="dot"></span>
+      Apertura — Giovedì 8 Maggio 2025
+    </div>
+  </div>
+
+  <div class="strip"></div>
+
+  <div class="sections">
+    <div class="section s1" onclick="showPage('page-pets')">
+      <div class="section-icon">🐾</div>
+      <div class="section-label">Animali</div>
+      <h3>Tutto per<br>cani &amp; gatti</h3>
+      <p>Cibo premium, snack naturali, giochi, accessori e prodotti per il benessere dei tuoi amici.</p>
+      <span class="section-cta">Scopri →</span>
+    </div>
+    <div class="section s2" onclick="showPage('page-house')">
+      <div class="section-icon">🏡</div>
+      <div class="section-label">Casa</div>
+      <h3>Articoli<br>per la casa</h3>
+      <p>Prodotti per la pulizia, decorazioni, accessori e tutto per rendere la casa più bella.</p>
+      <span class="section-cta">Scopri →</span>
+    </div>
+    <div class="section s3" onclick="showPage('page-plants')">
+      <div class="section-icon">🌸</div>
+      <div class="section-label">Natura</div>
+      <h3>Piante &amp;<br>fiori freschi</h3>
+      <p>Fiori recisi, piante da interno e da balcone, composizioni floreali ogni giorno.</p>
+      <span class="section-cta">Scopri →</span>
+    </div>
+  </div>
+
+  <div class="promo">
+    <div class="promo-text">
+      <div class="kicker">Offerta di inaugurazione</div>
+      <h2>Sconto su tutti<br>i prodotti</h2>
+      <p>Valido solo durante la settimana di apertura.<br>Non cumulabile con altre promozioni.</p>
+    </div>
+    <div class="promo-badge">
+      <span class="pct">15%</span>
+      <span class="off">SCONTO</span>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><span class="fi">🚗</span> Parcheggio gratuito</div>
+    <div class="feature"><span class="fi">📦</span> Ordini e riserve</div>
+    <div class="feature"><span class="fi">💳</span> Pagamento bancomat/carta</div>
+    <div class="feature"><span class="fi">♻️</span> Prodotti eco-friendly</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-item">
+      <span class="fi-label">📍 Indirizzo</span>
+      <span class="fi-value">Via Roma 24<br>35042 Este (PD)</span>
+    </div>
+    <div class="footer-item">
+      <span class="fi-label">⏰ Orari</span>
+      <span class="fi-value">Lun–Sab: 8:30–19:30<br>Dom: 9:00–13:00</span>
+    </div>
+    <div class="footer-item">
+      <span class="fi-label">📞 Contatti</span>
+      <span class="fi-value">
+        <a href="tel:+390429000000">0429 000000</a><br>
+        <a href="mailto:info@agrifarm.it">info@agrifarm.it</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="bottom-tag">🌟 Vieni a trovarci — ti aspettiamo! 🌟</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 1 — CANI & GATTI
+══════════════════════════════════════ -->
+<div class="page page-pets" id="page-pets">
+
+  <div class="back-bar" onclick="showPage('page-home-flyer')">
+    <span class="back-arrow">←</span>
+    <span>Torna al volantino</span>
+    <strong>/ Cani &amp; Gatti</strong>
+  </div>
+
+  <div class="cat-header">
+    <div class="store-name">AGRIFARM — Reparto Animali</div>
+    <h2>🐾 Cani &amp; Gatti<br><em>tutto per i tuoi amici</em></h2>
+    <p>Nutrizione, cura, giochi e accessori selezionati con amore</p>
+  </div>
+  <div class="strip"></div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="product-img">🦴<span class="product-badge">Bestseller</span></div>
+      <div class="product-info">
+        <div class="product-name">Crocchette Premium Adult</div>
+        <div class="product-desc">Formula arricchita con pollo e riso integrale. Senza coloranti artificiali, ideale per cani adulti di taglia media. 3 kg.</div>
+        <div class="product-footer">
+          <div class="product-price">12<span class="cents">,90</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🐱<span class="product-badge">Novità</span></div>
+      <div class="product-info">
+        <div class="product-name">Paté Gatto Gourmet</div>
+        <div class="product-desc">Paté umido al salmone e tonno per gatti esigenti. Ricco di omega-3 per pelo lucente. Confezione da 12 buste × 85 g.</div>
+        <div class="product-footer">
+          <div class="product-price">9<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🎾<span class="product-badge">Offerta</span></div>
+      <div class="product-info">
+        <div class="product-name">Kit Giochi Interattivi</div>
+        <div class="product-desc">Set da 5 giocattoli: palla, corda, tunnel, piuma e mouse. Stimola l'istinto e combatte la noia. Per cani e gatti.</div>
+        <div class="product-footer">
+          <div class="product-price">14<span class="cents">,99</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🛁<span class="product-badge">Bio</span></div>
+      <div class="product-info">
+        <div class="product-name">Shampoo Naturale Pet</div>
+        <div class="product-desc">Formula delicata con aloe vera e camomilla. Adatto a pelli sensibili. pH bilanciato, senza parabeni. 250 ml.</div>
+        <div class="product-footer">
+          <div class="product-price">7<span class="cents">,80</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-few">⚡ Ultimi pezzi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🛏️<span class="product-badge">Comfort</span></div>
+      <div class="product-info">
+        <div class="product-name">Cuccia Ortopedica Soft</div>
+        <div class="product-desc">Materasso memory foam con copertura lavabile in pile. Ideale per cani anziani o con problemi articolari. Tg. M.</div>
+        <div class="product-footer">
+          <div class="product-price">38<span class="cents">,00</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">💊<span class="product-badge">Salute</span></div>
+      <div class="product-info">
+        <div class="product-name">Antiparassitario Spot-On</div>
+        <div class="product-desc">Protezione mensile contro pulci, zecche e zanzare. Adatto a cani oltre 10 kg. Confezione da 3 pipette.</div>
+        <div class="product-footer">
+          <div class="product-price">18<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cat-footer">
+    <p><strong>AGRIFARM</strong> — Via Roma 24, Este (PD)</p>
+    <div class="promo-note">🎉 –15% inaugurazione</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 2 — ARTICOLI CASA
+══════════════════════════════════════ -->
+<div class="page page-home" id="page-house">
+
+  <div class="back-bar" onclick="showPage('page-home-flyer')">
+    <span class="back-arrow">←</span>
+    <span>Torna al volantino</span>
+    <strong>/ Articoli per la Casa</strong>
+  </div>
+
+  <div class="cat-header">
+    <div class="store-name">AGRIFARM — Reparto Casa</div>
+    <h2>🏡 Articoli Casa<br><em>qualità ogni giorno</em></h2>
+    <p>Pulizia, decorazione e funzionalità per ambienti che ami abitare</p>
+  </div>
+  <div class="strip"></div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="product-img">🧹<span class="product-badge">Eco</span></div>
+      <div class="product-info">
+        <div class="product-name">Scopa Ergonomica Pro</div>
+        <div class="product-desc">Manico telescopico in alluminio, testina articolata 180°. Cattura polvere e peli di animali. Con pattumiera abbinata.</div>
+        <div class="product-footer">
+          <div class="product-price">19<span class="cents">,90</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🕯️<span class="product-badge">Aroma</span></div>
+      <div class="product-info">
+        <div class="product-name">Set Candele Profumate</div>
+        <div class="product-desc">Cofanetto da 4 candele in cera di soia: lavanda, vaniglia, legno di cedro e cotone. Durata ~40 ore ciascuna.</div>
+        <div class="product-footer">
+          <div class="product-price">22<span class="cents">,00</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🧴<span class="product-badge">Bestseller</span></div>
+      <div class="product-info">
+        <div class="product-name">Detergente Multi-Sup.</div>
+        <div class="product-desc">Formula concentrata a base di bicarbonato e limone. Efficace su tutte le superfici, sicuro con bambini e animali. 750 ml.</div>
+        <div class="product-footer">
+          <div class="product-price">4<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🖼️<span class="product-badge">Design</span></div>
+      <div class="product-info">
+        <div class="product-name">Portafoto Legno Naturale</div>
+        <div class="product-desc">Cornice in legno massello con finitura opaca naturale. Formato 13×18 cm. Disponibile in noce, ciliegio e pino.</div>
+        <div class="product-footer">
+          <div class="product-price">11<span class="cents">,00</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🪴<span class="product-badge">Deco</span></div>
+      <div class="product-info">
+        <div class="product-name">Vaso Ceramica Artigianale</div>
+        <div class="product-desc">Vaso in ceramica smaltata fatto a mano, ø 16 cm. Disponibile in bianco panna, terracotta e blu notte. Ideale per succulente.</div>
+        <div class="product-footer">
+          <div class="product-price">13<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-few">⚡ Ultimi pezzi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🧺<span class="product-badge">Ordine</span></div>
+      <div class="product-info">
+        <div class="product-name">Set Organizer Cucina</div>
+        <div class="product-desc">6 contenitori impilabili in bambù e vetro. Ermetici, con etichette incluse. Perfetti per pasta, legumi e cereali.</div>
+        <div class="product-footer">
+          <div class="product-price">29<span class="cents">,90</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cat-footer">
+    <p><strong>AGRIFARM</strong> — Via Roma 24, Este (PD)</p>
+    <div class="promo-note">🎉 –15% inaugurazione</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 3 — PIANTE & FIORI
+══════════════════════════════════════ -->
+<div class="page page-plants" id="page-plants">
+
+  <div class="back-bar" onclick="showPage('page-home-flyer')">
+    <span class="back-arrow">←</span>
+    <span>Torna al volantino</span>
+    <strong>/ Piante &amp; Fiori</strong>
+  </div>
+
+  <div class="cat-header">
+    <div class="store-name">AGRIFARM — Reparto Verde</div>
+    <h2>🌸 Piante &amp; Fiori<br><em>freschi ogni mattina</em></h2>
+    <p>Composizioni, piante da interno e da balcone — natura a casa tua</p>
+  </div>
+  <div class="strip"></div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="product-img">🌹<span class="product-badge">Fresco</span></div>
+      <div class="product-info">
+        <div class="product-name">Bouquet Rose Rosse</div>
+        <div class="product-desc">Mazzo da 10 rose fresche a gambo lungo, provenienti da colture sostenibili. Disponibile in rosso, rosa e bianco.</div>
+        <div class="product-footer">
+          <div class="product-price">12<span class="cents">,00</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🌿<span class="product-badge">Indoor</span></div>
+      <div class="product-info">
+        <div class="product-name">Monstera Deliciosa</div>
+        <div class="product-desc">Pianta tropicale da interno in vaso da 19 cm. Foglie grandi e scenografiche, resistente e facile da curare. Alt. circa 50 cm.</div>
+        <div class="product-footer">
+          <div class="product-price">16<span class="cents">,90</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🌻<span class="product-badge">Stagione</span></div>
+      <div class="product-info">
+        <div class="product-name">Girasoli Freschi</div>
+        <div class="product-desc">Mazzo da 6 girasoli a stelo lungo, appena recisi. Portano allegria e sole in ogni ambiente. Durata garantita 7–10 giorni.</div>
+        <div class="product-footer">
+          <div class="product-price">8<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🌵<span class="product-badge">Easy Care</span></div>
+      <div class="product-info">
+        <div class="product-name">Kit Succulente (×3)</div>
+        <div class="product-desc">Trio di succulente assortite in vasetti di terracotta artigianali da 8 cm. Perfette per scrivania o davanzale. Annaffiatura minima.</div>
+        <div class="product-footer">
+          <div class="product-price">9<span class="cents">,90</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">💐<span class="product-badge">Regalo</span></div>
+      <div class="product-info">
+        <div class="product-name">Composizione Mista</div>
+        <div class="product-desc">Bouquet misto stagionale con tulipani, margherite e gypsophila. Confezionato a mano su ordinazione. Nastro incluso.</div>
+        <div class="product-footer">
+          <div class="product-price">18<span class="cents">,00</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-few">⚡ Su ordinazione</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🌱<span class="product-badge">Balcone</span></div>
+      <div class="product-info">
+        <div class="product-name">Gerani da Balcone</div>
+        <div class="product-desc">Piantine di geranio doppio in vaso da 14 cm. Fioritura abbondante da maggio a ottobre. Colori assortiti: rosso, rosa, bianco.</div>
+        <div class="product-footer">
+          <div class="product-price">5<span class="cents">,50</span><span class="euro"> €</span></div>
+          <span class="product-stock stock-yes">✓ Disponibile</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cat-footer">
+    <p><strong>AGRIFARM</strong> — Via Roma 24, Este (PD)</p>
+    <div class="promo-note">🎉 –15% inaugurazione</div>
+  </div>
+</div>
+
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+</script>
+</body>
+</html>
